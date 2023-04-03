@@ -5,30 +5,30 @@ const fileUpload = require("express-fileupload");
 const bcrypt = require('bcrypt');
 const conn = require("./model/connection");
 const jwt = require("jsonwebtoken");
-const session = require("express-session");
+// const session = require("express-session");
 const generateToken = require("./utils/jwtauth");
 const Product = require("./model/product");
 const User = require("./model/user");
 
 conn()
 
-const sess = {
-  secret: 'keyboard cat',
-  resave: true,
-  saveUninitialized: true,
-  cookie: {}
-}
+// const sess = {
+//   secret: 'keyboard cat',
+//   resave: true,
+//   saveUninitialized: true,
+//   cookie: {}
+// }
 
-if (app.get('env') === 'production') {
-  app.set('trust proxy', 1) // trust first proxy
-  sess.cookie.secure = true // serve secure cookies
-}
+// if (app.get('env') === 'production') {
+//   app.set('trust proxy', 1) // trust first proxy
+//   sess.cookie.secure = true // serve secure cookies
+// }
 
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(fileUpload({ useTempFiles: true, tempFileDir: '/tmp' }))
-app.use(session(sess))
+// app.use(session(sess))
 
 
 
@@ -167,7 +167,7 @@ app.post("/login", async(req, res)=>{
   let user = await User.findOne({email_address})
 
   if(user && bcrypt.compare(password, user.password)){
-    req.session.userId = userData.id
+    // req.session.userId = userData.id
     const {password, ...other} = user
 
     res.status(200).json({...other, token: generateToken(user)})
