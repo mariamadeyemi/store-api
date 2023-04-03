@@ -4,7 +4,7 @@ const app = express();
 const fileUpload = require("express-fileupload");
 const bcrypt = require('bcrypt');
 const conn = require("./model/connection");
-const jwt = require("jsonwebtoken");
+const cors = require("cors")
 // const session = require("express-session");
 const generateToken = require("./utils/jwtauth");
 const Product = require("./model/product");
@@ -24,7 +24,7 @@ conn()
 //   sess.cookie.secure = true // serve secure cookies
 // }
 
-
+app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(fileUpload({ useTempFiles: true, tempFileDir: '/tmp' }))
